@@ -17,15 +17,25 @@
     <div class="about-thumb">
       <picture>
         <source
-          srcset="/img/about/about-img.jpg 1x, /img/about/about-img@2x.jpg 2x"
+          media="(min-width: 1440px)"
+          srcset="/img/about/about-desk.jpg 1x, /img/about/about-desk@2x.jpg 2x"
+          type="image/jpeg"
+        />
+
+        <source
+          media="(min-width: 768px)"
+          srcset="/img/about/about-tab.jpg 1x, /img/about/about-tab@2x.jpg 2x"
+          type="image/jpeg"
+        />
+
+        <source
+          srcset="/img/about/about-mob.jpg 1x, /img/about/about-mob@2x.jpg 2x"
           type="image/jpeg"
         />
         <img
           class="about-img"
-          src="/img/about/about-img.jpg"
+          src="/img/about/about-mob.jpg"
           alt="Bride and groom walking and smiling"
-          width="1312"
-          height="593"
           loading="lazy"
         />
       </picture>
