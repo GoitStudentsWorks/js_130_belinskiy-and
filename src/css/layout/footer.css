@@ -99,6 +99,11 @@
         align-items: flex-start;
         padding: 48px;
         text-align: left;
+        justify-content: space-between;
+    }
+
+    .footer-info {
+        display: flex;
         gap: 40px;
     }
 
@@ -118,7 +123,6 @@
 
     .footer-nav {
         margin-bottom: 0;
-        margin-left: auto;
     }
 
 }
@@ -131,11 +135,6 @@
 
     .footer-content {
         padding: 48px;
-        gap: 40px;
-    }
-
-    .footer-nav {
-        margin-left: auto;
     }
 
     .footer-logo-img {
