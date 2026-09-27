@@ -46,7 +46,6 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-bottom: 16px;
     gap: 16px;
     padding: 0;
     margin-bottom: 40px;
@@ -55,7 +54,7 @@
 .portfolio-photo {
     border-radius: 16px;
     height: 335px;
-    width: 335px;
+    max-width: 335px;
     overflow: hidden;
 }
 
