@@ -99,6 +99,7 @@
         align-items: flex-start;
         padding: 48px;
         text-align: left;
+        gap: 40px;
     }
 
     .footer-brand {
@@ -117,6 +118,7 @@
 
     .footer-nav {
         margin-bottom: 0;
+        margin-left: auto;
     }
 
 }
