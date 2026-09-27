@@ -32,7 +32,7 @@ const categoryOrder = [
   'Portrait Perfection',
   'Ceremony & Vows',
   'Joyful Celebrations',
-  'Standard',
+  'Standart',
   'Attention to Detail',
 ];
 
