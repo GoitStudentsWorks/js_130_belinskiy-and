@@ -21,7 +21,7 @@
     padding: 0;
 }
 
-.portfolio-categories-btn button{
+.portfolio-categories-btn {
     padding: 10px 16px;
     background-color: transparent;
     border: none;
@@ -32,9 +32,7 @@
 }
 
 
-.portfolio-categories-btn button:active,
-.portfolio-categories-btn button:hover
-.portfolio-categories-btn button:focus
+.portfolio-categories-btn:active,
 .active{
     border: 2px solid var(--main-text-color);
     background-color: var(--secondary-text-color);
@@ -126,15 +124,11 @@
 
 .portfolio-section {
   padding-top: 92px;
-  padding-bottom: 0;
+  padding-bottom: 92px;
 }
 
 .portfolio-title {
     font-size: 48px;
-}
-
-.portfolio-filter {
-    margin-bottom: 92px;
 }
 
 .portfolio-photo {
