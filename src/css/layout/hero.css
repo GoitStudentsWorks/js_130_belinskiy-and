@@ -1,6 +1,5 @@
 /* Styles for Mobile devices */
 .hero-section {
-    background: var(--second-background-color);
     padding: 32px 0;
 }
 .hero-content {
