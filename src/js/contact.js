@@ -1,6 +1,7 @@
 import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import onOpenModal from './success-modal';
 
 const contactForm = document.querySelector('.contacts-form');
 
@@ -19,6 +20,7 @@ contactForm.addEventListener('submit', async event => {
       formData
     );
     event.target.reset();
+    onOpenModal();
   } catch (error) {
     iziToast.error({
       position: 'topRight',
