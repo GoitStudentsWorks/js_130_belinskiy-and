@@ -8,7 +8,7 @@
   border: 2px solid var(--main-text-color);
   border-radius: 16px;
   padding: 48px 20px;
-  background-color: var(--first-background-color);
+  background-color: var(--second-background-color);
   text-align: center;
 }
 
