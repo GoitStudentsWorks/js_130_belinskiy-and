@@ -10,7 +10,7 @@ contactForm.addEventListener('submit', async event => {
   const { name, phone, message } = event.target.elements;
   const formData = {
     name: name.value.trim(),
-    phone: phone.value.trim(),
+    phone: phone.value.trim().replace(/\D/g, ''),
     message: message.value.trim(),
   };
 
@@ -22,9 +22,21 @@ contactForm.addEventListener('submit', async event => {
     event.target.reset();
     onOpenModal();
   } catch (error) {
-    iziToast.error({
-      position: 'topRight',
-      message: error.response.data.message,
-    });
+    if (error.response.data.message.startsWith('"name"')) {
+      iziToast.error({
+        position: 'topRight',
+        message: 'Name must be at least 2 characters long',
+      });
+    } else if (error.response.data.message.startsWith('"phone"')) {
+      iziToast.error({
+        position: 'topRight',
+        message: 'Phone number must have 12 digits. For example, "+380962223456"',
+      });
+    } else if (error.response.data.message.startsWith('"message"')) {
+      iziToast.error({
+        position: 'topRight',
+        message: 'Message must be at least 5 characters long',
+      });
+    }
   }
 });
