@@ -1,19 +1,10 @@
-import {
-  getCategories,
-  getWeddingPhotos,
-} from '../js/api-port';
+import { getCategories, getWeddingPhotos } from '../js/api-port';
 
-const portfolioFilter = document.querySelector(
-  '.portfolio-filter'
-);
+const portfolioFilter = document.querySelector('.portfolio-filter');
 
-const portfolioList = document.querySelector(
-  '.portfolio-list'
-);
+const portfolioList = document.querySelector('.portfolio-list');
 
-const showMoreBtn = document.querySelector(
-  '.show-more-btn'
-);
+const showMoreBtn = document.querySelector('.show-more-btn');
 
 const loader = document.querySelector('.loader');
 
@@ -57,7 +48,6 @@ const hideMore = () => {
 const renderCategories = categories => {
   portfolioFilter.innerHTML = '';
 
-
   const allItem = document.createElement('li');
   const allButton = document.createElement('button');
 
@@ -65,15 +55,11 @@ const renderCategories = categories => {
   allButton.textContent = 'All Photos';
   allButton.dataset.categoryId = '';
 
-  allButton.classList.add(
-    'portfolio-categories-btn',
-    'active'
-  );
+  allButton.classList.add('portfolio-categories-btn', 'active');
 
   allItem.appendChild(allButton);
   portfolioFilter.appendChild(allItem);
 
-  
   categories.forEach(category => {
     const item = document.createElement('li');
     const button = document.createElement('button');
@@ -83,9 +69,7 @@ const renderCategories = categories => {
 
     button.dataset.categoryId = category._id;
 
-    button.classList.add(
-      'portfolio-categories-btn'
-    );
+    button.classList.add('portfolio-categories-btn');
 
     item.appendChild(button);
     portfolioFilter.appendChild(item);
@@ -110,10 +94,7 @@ const renderPhotos = photos => {
       )
       .join('');
 
-    portfolioList.insertAdjacentHTML(
-      'beforeend',
-      markup
-    );
+    portfolioList.insertAdjacentHTML('beforeend', markup);
 
     return photos.length;
   }
@@ -146,17 +127,12 @@ const renderPhotos = photos => {
     )
     .join('');
 
-  portfolioList.insertAdjacentHTML(
-    'beforeend',
-    markup
-  );
+  portfolioList.insertAdjacentHTML('beforeend', markup);
 
   return photosToRender.length;
 };
 
-const loadPhotos = async ({
-  reset = false,
-} = {}) => {
+const loadPhotos = async ({ reset = false } = {}) => {
   if (isLoading) {
     return 0;
   }
@@ -166,11 +142,7 @@ const loadPhotos = async ({
 
     showLoader();
 
-    const data = await getWeddingPhotos(
-      currentCategoryId,
-      1,
-      currentLimit
-    );
+    const data = await getWeddingPhotos(currentCategoryId, 1, currentLimit);
 
     console.log('Photos response:', data);
 
@@ -178,37 +150,22 @@ const loadPhotos = async ({
 
     totalItems = data.totalItems || 0;
 
-    console.log(
-      'Current limit:',
-      currentLimit
-    );
+    console.log('Current limit:', currentLimit);
 
-    console.log(
-      'Photos received:',
-      photos.length
-    );
+    console.log('Photos received:', photos.length);
 
-    console.log(
-      'Total items:',
-      totalItems
-    );
+    console.log('Total items:', totalItems);
 
     if (reset) {
       portfolioList.innerHTML = '';
 
       loadedPhotoIds.clear();
 
-      const renderedCount =
-        renderPhotos(photos);
+      const renderedCount = renderPhotos(photos);
 
-      if (
-        renderedCount === 0 ||
-        totalItems === 0
-      ) {
+      if (renderedCount === 0 || totalItems === 0) {
         hideMore();
-      } else if (
-        currentLimit >= totalItems
-      ) {
+      } else if (currentLimit >= totalItems) {
         hideMore();
       } else {
         showMore();
@@ -217,30 +174,20 @@ const loadPhotos = async ({
       return renderedCount;
     }
 
+    const previousLimit = currentLimit - LOAD_MORE_LIMIT;
 
-    const previousLimit =
-      currentLimit - LOAD_MORE_LIMIT;
+    const newPhotos = photos.slice(previousLimit);
 
-    const newPhotos = photos.slice(
-      previousLimit
-    );
+    console.log('New photos:', newPhotos.length);
 
-    console.log(
-      'New photos:',
-      newPhotos.length
-    );
-
-    
     if (!newPhotos.length) {
       hideMore();
 
       return 0;
     }
 
-    const renderedCount =
-      renderPhotos(newPhotos);
+    const renderedCount = renderPhotos(newPhotos);
 
-  
     if (renderedCount === 0) {
       hideMore();
 
@@ -255,10 +202,7 @@ const loadPhotos = async ({
 
     return renderedCount;
   } catch (error) {
-    console.error(
-      'Error loading portfolio photos:',
-      error
-    );
+    console.error('Error loading portfolio photos:', error);
 
     hideMore();
 
@@ -270,126 +214,88 @@ const loadPhotos = async ({
   }
 };
 
-portfolioFilter.addEventListener(
-  'click',
-  async event => {
-    const button =
-      event.target.closest('button');
+portfolioFilter.addEventListener('click', async event => {
+  const button = event.target.closest('button');
 
-    if (!button) {
-      return;
-    }
+  if (!button) {
+    return;
+  }
 
-    const buttons =
-      portfolioFilter.querySelectorAll(
-        'button'
-      );
+  const buttons = portfolioFilter.querySelectorAll('button');
 
-    buttons.forEach(btn => {
-      btn.classList.remove('active');
-    });
+  buttons.forEach(btn => {
+    btn.classList.remove('active');
+  });
 
-    button.classList.add('active');
+  button.classList.add('active');
 
-    currentCategoryId =
-      button.dataset.categoryId || '';
+  currentCategoryId = button.dataset.categoryId || '';
 
-    
-    currentLimit = INITIAL_LIMIT;
+  currentLimit = INITIAL_LIMIT;
 
-    totalItems = 0;
+  totalItems = 0;
 
-    loadedPhotoIds.clear();
+  loadedPhotoIds.clear();
 
+  hideMore();
+
+  await loadPhotos({
+    reset: true,
+  });
+});
+
+showMoreBtn.addEventListener('click', async () => {
+  if (isLoading) {
+    console.log('isLoading');
+    return;
+  }
+
+  if (totalItems === 0 || currentLimit >= totalItems) {
     hideMore();
 
-    await loadPhotos({
-      reset: true,
-    });
+    return;
   }
-);
 
-showMoreBtn.addEventListener(
-  'click',
-  async () => {
-    if (isLoading) {
-      return;
-    }
+  const nextLimit = currentLimit + LOAD_MORE_LIMIT;
 
-    if (
-      totalItems === 0 ||
-      currentLimit >= totalItems
-    ) {
-      hideMore();
+  currentLimit = Math.min(nextLimit, totalItems);
 
-      return;
-    }
+  console.log('Loading with limit:', currentLimit);
 
-    
-    const nextLimit =
-      currentLimit + LOAD_MORE_LIMIT;
+  const newPhotosCount = await loadPhotos();
 
-    currentLimit = Math.min(
-      nextLimit,
-      totalItems
-    );
+  if (newPhotosCount === 0) {
+    hideMore();
 
-    console.log(
-      'Loading with limit:',
-      currentLimit
-    );
-
-    const newPhotosCount =
-      await loadPhotos();
-
-  
-    if (newPhotosCount === 0) {
-      hideMore();
-
-      return;
-    }
-
-    
-    if (currentLimit < totalItems) {
-      showMore();
-    } else {
-      hideMore();
-    }
+    return;
   }
-);
+
+  if (currentLimit < totalItems) {
+    showMore();
+  } else {
+    hideMore();
+  }
+});
 
 const initPortfolio = async () => {
   try {
     showLoader();
 
-    const categoriesResponse =
-      await getCategories();
+    const categoriesResponse = await getCategories();
 
-    console.log(
-      'Categories response:',
-      categoriesResponse
-    );
+    console.log('Categories response:', categoriesResponse);
 
-    const categories = Array.isArray(
-      categoriesResponse
-    )
+    const categories = Array.isArray(categoriesResponse)
       ? categoriesResponse
       : categoriesResponse.categories || [];
 
-    const sortedCategories =
-      categoryOrder
-        .map(categoryName =>
-          categories.find(
-            category =>
-              category.category ===
-              categoryName
-          )
-        )
-        .filter(Boolean);
+    const sortedCategories = categoryOrder
+      .map(categoryName =>
+        categories.find(category => category.category === categoryName)
+      )
+      .filter(Boolean);
 
-    renderCategories(
-      sortedCategories
-    );
+    renderCategories(sortedCategories);
 
     currentCategoryId = '';
 
@@ -399,15 +305,11 @@ const initPortfolio = async () => {
 
     loadedPhotoIds.clear();
 
-   
     await loadPhotos({
       reset: true,
     });
   } catch (error) {
-    console.error(
-      'Portfolio initialization error:',
-      error
-    );
+    console.error('Portfolio initialization error:', error);
 
     hideMore();
   } finally {
@@ -416,5 +318,3 @@ const initPortfolio = async () => {
 };
 
 initPortfolio();
-
-
