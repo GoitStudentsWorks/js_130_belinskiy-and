@@ -1,14 +1,8 @@
 const backdropElem = document.querySelector('.js-success-backdrop');
 const closeBtnElem = document.querySelector('.js-close-modal');
 const bodyElem = document.body;
-const contactsForm = document
-  .querySelector('.contacts-button')
-  ?.closest('form');
+
 // --- слухачі подій ---
-// відкриття модалки
-if (contactsForm) {
-  contactsForm.addEventListener('submit', onOpenModal);
-}
 // закриття на кнопку
 if (closeBtnElem) {
   closeBtnElem.addEventListener('click', onCloseModal);
@@ -20,11 +14,9 @@ if (backdropElem) {
 //закриття на Escape
 window.addEventListener('keydown', onEscKeyPress);
 
-function onOpenModal(event) {
-  event.preventDefault(); // відміна оновлення сторінки
+export default function onOpenModal() {
   backdropElem.classList.add('is-open');
   bodyElem.classList.add('modal-open');
-  contactsForm.reset();
   // блокування свайпів
   window.addEventListener('wheel', preventScroll, { passive: false });
   window.addEventListener('touchmove', preventScroll, { passive: false });
