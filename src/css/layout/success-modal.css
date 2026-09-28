@@ -13,6 +13,7 @@
   justify-content: center;
   align-items: center;
   z-index: 999;
+  overflow-y: auto;
 
   opacity: 0;
   pointer-events: none;
@@ -29,12 +30,15 @@
 }
 
 .success-modal-content {
+  /* box-sizing: border-box; */
   position: relative;
-  background-color: #fbf9f1;
+  /* background-color: #fbf9f1; */
+  background-color: var(--first-background-color);
   border-radius: 24px;
   padding: 64px 20px;
   width: 100%;
   max-width: 100%;
+  /* max-width: calc(100% - 40px); */
   text-align: center;
 }
 
@@ -68,13 +72,20 @@
   /* color: var(--color-scheme-1-text); */
   color: #000000;
 }
+.modal-picture-thumb {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
 .modal-image {
   display: block;
   border-radius: 16px;
   width: 100%;
   max-width: 295px;
   height: auto;
-  margin: 16px auto;
+  /* margin: 16px auto; */
 }
 .modal-text {
   /* font-family: var(--font-family); */
