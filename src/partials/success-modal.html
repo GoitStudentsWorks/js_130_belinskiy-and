@@ -1,0 +1,54 @@
+<section class="success-modal-backdrop js-success-backdrop">
+  <div class="success-modal-content">
+    <button
+      class="modal-close-button js-close-modal"
+      type="button"
+      aria-label="Close modal"
+    >
+      <svg class="close-button-icon">
+        <use href="/img/sprite.svg#icon-close"></use>
+      </svg>
+    </button>
+
+    <h2 class="modal-title">Thank You for Your Inquiry!</h2>
+    <div class="modal-picture-thumb">
+      <picture>
+        <!-- зображення для дисплеїв до 767рх -->
+        <source
+          srcset="
+            /img/success-modal/modal-img-mb.jpg   1x,
+            /img/success-modal/modal-img-mb2x.jpg 2x
+          "
+          media="(max-width: 767px)"
+        />
+        <!-- зображення від 768рх до 1439рх -->
+        <source
+          srcset="
+            /img/success-modal/modal-img-tab.jpg   1x,
+            /img/success-modal/modal-img-tab2x.jpg 2x
+          "
+          media="(min-width:768px) and (max-width: 1439px)"
+        />
+        <!--зображення від 1440рх і більше  -->
+        <source
+          srcset="
+            /img/success-modal/modal-img-dp.jpg   1x,
+            /img/success-modal/modal-img-dp2x.jpg 2x
+          "
+          media="(min-width: 1440px)"
+        />
+        <img
+          class="modal-image"
+          src="/img/success-modal/modal-img-dp.jpg"
+          alt="An elegant and styled flat lay composition"
+        />
+      </picture>
+    </div>
+    <p class="modal-text">
+      I have received your message and I'm so excited about your interest! I
+      will get in touch with you within 24-48 hours to discuss the details of
+      your wedding day. In the meantime, feel free to browse my portfolio or
+      follow me on Instagram for more inspiration.
+    </p>
+  </div>
+</section>
