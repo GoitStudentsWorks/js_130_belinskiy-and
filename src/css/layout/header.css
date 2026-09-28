@@ -22,7 +22,7 @@
 
 .nav-list {
   display: flex;
-  gap: 32px;
+  gap: 20px;
   align-items: center;
 }
 
@@ -56,8 +56,17 @@
   .burger {
     display: none;
   }
+
+  .logo-link {
+    width: 78px;
+    height: 68px;
+  }
 }
 
 /* Styles for Desktop devices */
 @media only screen and (min-width: 1440px) {
+  .logo-link {
+    width: 80px;
+    height: 70px;
+  }
 }

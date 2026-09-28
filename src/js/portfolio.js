@@ -144,17 +144,9 @@ const loadPhotos = async ({ reset = false } = {}) => {
 
     const data = await getWeddingPhotos(currentCategoryId, 1, currentLimit);
 
-    console.log('Photos response:', data);
-
     const photos = data.weddingPhotos || [];
 
     totalItems = data.totalItems || 0;
-
-    console.log('Current limit:', currentLimit);
-
-    console.log('Photos received:', photos.length);
-
-    console.log('Total items:', totalItems);
 
     if (reset) {
       portfolioList.innerHTML = '';
@@ -177,8 +169,6 @@ const loadPhotos = async ({ reset = false } = {}) => {
     const previousLimit = currentLimit - LOAD_MORE_LIMIT;
 
     const newPhotos = photos.slice(previousLimit);
-
-    console.log('New photos:', newPhotos.length);
 
     if (!newPhotos.length) {
       hideMore();
@@ -246,7 +236,6 @@ portfolioFilter.addEventListener('click', async event => {
 
 showMoreBtn.addEventListener('click', async () => {
   if (isLoading) {
-    console.log('isLoading');
     return;
   }
 
@@ -259,8 +248,6 @@ showMoreBtn.addEventListener('click', async () => {
   const nextLimit = currentLimit + LOAD_MORE_LIMIT;
 
   currentLimit = Math.min(nextLimit, totalItems);
-
-  console.log('Loading with limit:', currentLimit);
 
   const newPhotosCount = await loadPhotos();
 
@@ -282,8 +269,6 @@ const initPortfolio = async () => {
     showLoader();
 
     const categoriesResponse = await getCategories();
-
-    console.log('Categories response:', categoriesResponse);
 
     const categories = Array.isArray(categoriesResponse)
       ? categoriesResponse
