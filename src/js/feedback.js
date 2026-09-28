@@ -62,11 +62,11 @@ function initFeedback() {
   const slider = section.querySelector('.feedback-slider');
   const list = section.querySelector('.feedback-list');
   const status = section.querySelector('[data-feedback-status]');
-  const retry = section.querySelector('[data-feedback-retry]');
   const controls = section.querySelector('.feedback-controls');
   const previous = section.querySelector('[data-feedback-prev]');
   const next = section.querySelector('[data-feedback-next]');
   let swiper;
+  let retryDelay = 2000;
 
   function syncButtons(instance) {
     previous.disabled = instance.isBeginning || instance.isLocked;
@@ -76,9 +76,6 @@ function initFeedback() {
   }
 
   async function load() {
-    const restoreFocus = document.activeElement === retry;
-    retry.hidden = true;
-    status.hidden = false;
     status.textContent = 'Loading reviews…';
     slider.setAttribute('aria-busy', 'true');
 
@@ -108,6 +105,7 @@ function initFeedback() {
       status.hidden = feedbacks.length > 0;
       slider.hidden = !feedbacks.length;
       controls.hidden = !feedbacks.length;
+      slider.setAttribute('aria-busy', 'false');
       if (!feedbacks.length) return;
 
       swiper = new Swiper(slider, {
@@ -136,7 +134,7 @@ function initFeedback() {
           nextSlideMessage: 'Next reviews',
         },
         breakpoints: {
-          768: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
           1440: { slidesPerView: 3 },
         },
         on: {
@@ -149,17 +147,23 @@ function initFeedback() {
           unlock: syncButtons,
         },
       });
-      if (restoreFocus) slider.focus();
     } catch (error) {
       swiper?.destroy(true, true);
       swiper = undefined;
+
       slider.hidden = true;
       controls.hidden = true;
       status.hidden = false;
-      status.textContent = 'Could not load reviews. Please try again.';
-      retry.hidden = false;
-      if (restoreFocus) retry.focus();
-      console.error('Feedback loading failed:', error);
+      status.textContent = 'Loading reviews…';
+      slider.setAttribute('aria-busy', 'true');
+
+      console.warn('Feedback loading failed; retrying automatically:', error);
+
+      setTimeout(() => {
+        if (section.isConnected) void load();
+      }, retryDelay);
+
+      retryDelay = Math.min(retryDelay * 2, 30000);
     } finally {
       slider.setAttribute('aria-busy', 'false');
     }
@@ -178,7 +182,6 @@ function initFeedback() {
     }
   });
 
-  retry.addEventListener('click', load);
   void load();
 }
 

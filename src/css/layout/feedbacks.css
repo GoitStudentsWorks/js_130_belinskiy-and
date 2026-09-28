@@ -1,9 +1,6 @@
-.feedback-section [hidden] {
-    display: none !important;
-}
 
 
-.feedback-section .feedback-title {
+ .feedback-title {
     max-width: 100%;
     margin: 0 auto 24px;
     font-size: 32px;
@@ -26,13 +23,13 @@
     overflow: hidden;
 }
 
-.feedback-section .feedback-list {
+.feedback-list {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.feedback-section .feedback-card {
+.feedback-card {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -150,10 +147,6 @@
     text-align: center;
 }
 
-.feedback-retry {
-    display: block;
-    margin: 16px auto 0;
-}
 
 @media (min-width: 768px) {
 
@@ -161,7 +154,7 @@
         max-width: 80%;
     }
 
-    .feedback-section .feedback-card {
+.feedback-card {
         padding: 20px;
         min-height: 100%;
     }
@@ -172,12 +165,12 @@
         max-width: 100%;
     }
 
-    .feedback-section .feedback-title {
+ .feedback-title {
         line-height: 1.2;
         font-size: 48px;
     }
 
-    .feedback-section .feedback-card {
+.feedback-card {
         min-height: 274px;
     }
 
