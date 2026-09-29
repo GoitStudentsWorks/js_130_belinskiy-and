@@ -1,11 +1,66 @@
-/* Styles for Mobile devices */
 .about-section {
+  .about-section {
+    text-align: center;
+  }
+
+  .about-content {
+    max-width: 335px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+  }
+
+  h2.about-title {
+    font-family: var(--secondary-font-family);
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  .about-text {
+    font-family: var(--main-font-family);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--main-text-color);
+  }
+
+  .about-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 24px;
+    object-fit: cover;
+  }
 }
 
-/* Styles for Tablet devices */
 @media only screen and (min-width: 768px) {
+  .about-content {
+    max-width: 704px;
+  }
+
+  h2.about-title {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .about-text {
+    font-size: 16px;
+  }
 }
 
-/* Styles for Desktop devices */
 @media only screen and (min-width: 1440px) {
+  .about-content {
+    max-width: 779px;
+  }
+
+  h2.about-title {
+    font-size: 40px;
+    line-height: 1.2;
+  }
+
+  .about-text {
+    font-size: 18px;
+  }
 }
