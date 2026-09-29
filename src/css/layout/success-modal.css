@@ -22,7 +22,9 @@
     opacity var(--transition-function),
     visibility var(--transition-function);
 }
-
+body.modal-open {
+  overflow: hidden;
+}
 .success-modal-backdrop.is-open {
   opacity: 1;
   pointer-events: all;
