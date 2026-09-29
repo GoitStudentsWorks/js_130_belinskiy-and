@@ -138,4 +138,9 @@
   .footer-logo-img {
     width: 128px;
   }
+
+  .footer-nav,
+  .footer-social {
+    width: 166px;
+  }
 }
